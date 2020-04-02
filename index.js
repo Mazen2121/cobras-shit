@@ -1,5 +1,30 @@
 const Discord = require('discord.js'); 
 const client = new Discord.Client();
+
+client.on('message', message =>{
+    if(message.content.startsWith(`&avatar`))
+    {
+        const user = message.mentions.users.first()
+        if(!user)
+        {
+            const embed = new Discord.MessageEmbed()
+            .setColor(`RANDOM`)
+            .setAuthor(message.author.username)
+            .setTitle(`Here is your avatar!`)
+            .setThumbnail(message.author.displayAvatarURL)
+            message.reply(embed)
+        }
+        else if(user)
+        {
+            const embed = new Discord.MessageEmbed()
+            .setColor(`RANDOM`)
+            .setAuthor(user.tag)
+            .setTitle(`Here is ${user.tag}'s Avatar`)
+            .setThumbnail(user.displayAvatarURL)
+            message.reply(embed)
+        }
+    }
+})
 function CoinFlip() 
 {
     return (Math.floor(Math.random() *2) == 0)? `Tails` : `Heads`
